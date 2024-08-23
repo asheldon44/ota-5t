@@ -1,0 +1,29 @@
+v {xschem version=3.4.5 file_version=1.2
+}
+G {}
+K {type=source
+format="@name @@a @@b sub_@name
+.subckt sub_@name a b
+Ii 0 x DC 0 AC 0
+Vi x a DC 0 AC 1
+Vnodebuffer b x 0
+.ends loopgainprobe
+
+.func tian_loop() \{1/(1-1/(2*(ac1.I(v.X999.Vi)*ac2.V(X999.x)-ac1.V(X999.x)*ac2.I(v.X999.Vi))+ac1.V(X999.x)+ac2.I(v.X999.Vi)))\}
+"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 10 0 30 0 {}
+L 4 -70 0 -50 0 {}
+L 4 -50 -10 -50 10 {}
+L 4 -50 -10 10 -10 {}
+L 4 10 -10 10 10 {}
+L 4 -50 10 10 10 {}
+B 5 27.5 -2.5 32.5 2.5 {name=b dir=inout}
+B 5 -72.5 -2.5 -67.5 2.5 {name=a dir=inout}
+T {@name} -45 -12 0 0 0.2 0.2 {}
+T {b} 5 -4 0 1 0.2 0.2 {}
+T {a} -45 -4 0 0 0.2 0.2 {}

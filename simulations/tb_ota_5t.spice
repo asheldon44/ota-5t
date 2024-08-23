@@ -1,0 +1,37 @@
+** sch_path: /foss/designs/ota_5t/tb_ota_5t.sch
+**.subckt tb_ota_5t
+Vgs net1 GND dc 0.6 ac 1
+Xm1a vd net1 vs GND sg13_lv_nmos w=10u l=2u ng=1 m=2
+Xm1b vout vout vs GND sg13_lv_nmos w=10u l=2u ng=1 m=2
+I0 vs GND 100u
+Xm2b vout vd VDD VDD sg13_lv_pmos w=5u l=0.5u ng=1 m=2
+Xm2a vd vd VDD VDD sg13_lv_pmos w=5u l=0.5u ng=1 m=2
+Vdd VDD GND 1.2
+.save i(vdd)
+C1 vout GND 1p m=1
+**** begin user architecture code
+ .lib /foss/pdks/sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+
+
+
+.param temp=27
+*.include /foss/designs/ota_5t/tb_ota_5t_save.spice
+.control
+	save all
+	op
+	write tb_ota_5t.raw
+	ac dec 100 1k 100e9
+	let vout_mag = abs(v(vout))
+	let vout_phase_margin = phase(v(vout))*180/pi+180
+	meas ac A0 find vout_mag at=1k
+	meas ac UGF when vout_mag=1 fall=1
+	meas ac PM find vout_phase_margin when vout_mag=1
+	echo $&A0 $&UGF $&PM > tb_ota_5t_ac.data
+	*quit
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

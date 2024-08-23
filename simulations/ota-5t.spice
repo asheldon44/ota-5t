@@ -1,0 +1,16 @@
+** sch_path: /foss/designs/ota_5t/ota-5t.sch
+**.subckt ota-5t Vp Vn Vout VDD VSS Ib
+*.iopin VDD
+*.ipin Vp
+*.opin Vout
+*.ipin Vn
+*.iopin VSS
+*.ipin Ib
+Xm1a vd Vp vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
+Xm2b Vout vd VDD VDD sg13_lv_pmos w=2u l=2u ng=1 m=4
+Xm2a vd vd VDD VDD sg13_lv_pmos w=2u l=2u ng=1 m=4
+Xm3a vs Ib VSS VSS sg13_lv_nmos w=10u l=10u ng=1 m=2
+Xm1b Vout Vn vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
+Xm3b Ib Ib VSS VSS sg13_lv_nmos w=10u l=10u ng=1 m=2
+**.ends
+.end

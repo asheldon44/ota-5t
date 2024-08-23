@@ -1,0 +1,46 @@
+** sch_path: /foss/designs/ota_5t/tb_ota_5t_stb.sch
+**.subckt tb_ota_5t_stb
+Vgs Vin GND dc 0.6 ac 0
+Xm1a vd Vin vs GND sg13_lv_nmos w=10u l=2u ng=1 m=2
+Xm1b vout vfdbk vs GND sg13_lv_nmos w=10u l=2u ng=1 m=2
+I0 vs GND 100u
+Xm2b vout vd VDD VDD sg13_lv_pmos w=5u l=0.5u ng=1 m=2
+Xm2a vd vd VDD VDD sg13_lv_pmos w=5u l=0.5u ng=1 m=2
+Vdd VDD GND 1.2
+.save i(vdd)
+C1 vout GND 1p m=1
+X999 vfdbk vout sub_X999
+.subckt sub_X999 a b
+Ii 0 x DC 0 AC 0
+Vi x a DC 0 AC 1
+Vnodebuffer b x 0
+.ends loopgainprobe
+
+.func tian_loop() {1/(1-1/(2*(ac1.I(v.X999.Vi)*ac2.V(X999.x)-ac1.V(X999.x)*ac2.I(v.X999.Vi))+ac1.V(X999.x)+ac2.I(v.X999.Vi)))}
+
+**** begin user architecture code
+ .lib /foss/pdks/sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+
+
+
+.param temp=27
+.control
+	save all
+	ac dec 100 0.01 100e9
+	alter i.X999.ii acmag=1
+	alter v.X999.vi acmag=0
+	ac dec 100 0.01 100e9
+	let tian_signal = tian_loop()
+	plot db(tian_signal)
+	let dbsignal = db(tian_signal)
+	meas ac zerogainfreq when dbsignal=0
+	plot 180*cph(tian_signal)/pi
+	let tphase = 180*cph(tian_signal)/pi
+	meas ac phaseatzerogain find tphase at=zerogainfreq
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
