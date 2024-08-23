@@ -97,3 +97,8 @@ C {devices/isource.sym} -110 -90 0 0 {name=I0 value=5u}
 C {devices/lab_wire.sym} 170 0 0 0 {name=p1 sig_type=std_logic lab=vout}
 C {devices/lab_wire.sym} -140 -40 0 0 {name=p2 sig_type=std_logic lab=vin}
 C {devices/lab_wire.sym} -10 -130 0 0 {name=p3 sig_type=std_logic lab=VDD}
+C {devices/ngspice_get_value.sym} -220 210 0 0 {name=r1 node=v(@n.x1.xm1a.nsg13_lv_nmos[vgs])
+descr="Vgs[m1a]="}
+C {devices/launcher.sym} 110 -70 0 0 {name=h1
+descr=Backannotate 
+tclcommand="xschem annotate_op"}
