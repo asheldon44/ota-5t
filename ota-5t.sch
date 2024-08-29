@@ -105,7 +105,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} -200 -410 0 0 {name=m2b
 l=1u
-w=2u
+w=4u
 ng=1
 m=1
 model=sg13_lv_pmos
@@ -113,7 +113,7 @@ spiceprefix=X
 }
 C {sg13g2_pr/sg13_lv_pmos.sym} -370 -410 0 1 {name=m2a
 l=1u
-w=2u
+w=4u
 ng=1
 m=1
 model=sg13_lv_pmos

@@ -10,7 +10,7 @@ Vnodebuffer b x 0
 
 .func tian_loop() {1/(1-1/(2*(ac1.I(v.X999.Vi)*ac2.V(X999.x)-ac1.V(X999.x)*ac2.I(v.X999.Vi))+ac1.V(X999.x)+ac2.I(v.X999.Vi)))}
 
-C1 vout GND 1p m=1
+C1 vout GND 500f m=1
 Vin vin GND 0.6
 Vsup VDD GND 1.2
 I0 VDD net2 5u
@@ -24,8 +24,10 @@ I0 VDD net2 5u
 
 .param temp=27
 .include /foss/designs/ota_5t/tb_ota_5t_save.spice
+.option savecurrents
 .control
         save all
+	remzerovec
         op
         write ota-5t_tb.raw
         dc Vin 0 1.2 0.05
@@ -60,8 +62,8 @@ I0 VDD net2 5u
 *.iopin VSS
 *.ipin Ib
 Xm1a vd Vp vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
-Xm2b Vout vd VDD VDD sg13_lv_pmos w=2u l=1u ng=1 m=1
-Xm2a vd vd VDD VDD sg13_lv_pmos w=2u l=1u ng=1 m=1
+Xm2b Vout vd VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+Xm2a vd vd VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
 Xm3a vs Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
 Xm1b Vout Vn vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
 Xm3b Ib Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
