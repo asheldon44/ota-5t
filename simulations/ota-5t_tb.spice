@@ -11,7 +11,7 @@ Vnodebuffer b x 0
 .func tian_loop() {1/(1-1/(2*(ac1.I(v.X999.Vi)*ac2.V(X999.x)-ac1.V(X999.x)*ac2.I(v.X999.Vi))+ac1.V(X999.x)+ac2.I(v.X999.Vi)))}
 
 C1 vout GND 500f m=1
-Vin vin GND 0.6
+Vin vin GND dc 0.6 ac {noisemag}
 Vsup VDD GND 1.2
 I0 VDD net2 5u
 **** begin user architecture code
@@ -23,6 +23,7 @@ I0 VDD net2 5u
 
 
 .param temp=27
+.param noisemag=0
 .include /foss/designs/ota_5t/tb_ota_5t_save.spice
 .option savecurrents
 .control
@@ -45,6 +46,10 @@ I0 VDD net2 5u
         plot 180*cph(tian_signal)/pi
         let tphase = 180*cph(tian_signal)/pi
         meas ac phaseatzerogain find tphase at=zerogainfreq
+	alterparam noisemag=1
+        alter i.X999.ii acmag=0
+        alter v.X999.vi acmag=0
+	noise v(vout) vin dec 100 0.01 100e9
 .endc
 
 
@@ -56,17 +61,22 @@ I0 VDD net2 5u
 ** sch_path: /foss/designs/ota_5t/ota-5t.sch
 .subckt ota-5t Vp Vn Vout VDD VSS Ib
 *.iopin VDD
-*.ipin Vp
-*.opin Vout
 *.ipin Vn
+*.opin Vout
+*.ipin Vp
 *.iopin VSS
 *.ipin Ib
-Xm1a vd Vp vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
-Xm2b Vout vd VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
-Xm2a vd vd VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+Xm1a vd Vn vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
+Xm2b vint vd VDD VDD sg13_lv_pmos w=2u l=2u ng=1 m=1
+Xm2a vd vd VDD VDD sg13_lv_pmos w=2u l=2u ng=1 m=1
 Xm3a vs Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
-Xm1b Vout Vn vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
-Xm3b Ib Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
+Xm1b vint Vp vs VSS sg13_lv_nmos w=10u l=4u ng=1 m=4
+Xm3ref Ib Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
+Xm3b vint2 Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
+Xm2c vint2 vint VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
+Xm2d VDD vint2 Vout Vout sg13_lv_nmos w=1u l=1u ng=1 m=32
+Xm3c Vout Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=4
+C1 vint2 vint 20p m=1
 .ends
 
 .GLOBAL GND
