@@ -50,6 +50,8 @@ I0 VDD net2 5u
         alter i.X999.ii acmag=0
         alter v.X999.vi acmag=0
 	noise v(vout) vin dec 100 0.01 100e9
+	setplot noise2
+	plot onoise_spectrum inoise_spectrum xlog ylog
 .endc
 
 
@@ -76,7 +78,8 @@ Xm3b vint2 Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=2
 Xm2c vint2 vint VDD VDD sg13_lv_pmos w=4u l=1u ng=1 m=1
 Xm2d VDD vint2 Vout Vout sg13_lv_nmos w=1u l=1u ng=1 m=32
 Xm3c Vout Ib VSS VSS sg13_lv_nmos w=1u l=1u ng=1 m=4
-C1 vint2 vint 20p m=1
+C1 vint2 net1 5p m=1
+R1 net1 vint 1k m=1
 .ends
 
 .GLOBAL GND

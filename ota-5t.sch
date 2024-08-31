@@ -89,8 +89,6 @@ N -440 -280 -430 -280 {
 lab=Vn}
 N -620 -260 -620 -210 {
 lab=Ib}
-N -180 -350 -90 -350 {
-lab=vint}
 N -180 -380 -180 -350 {
 lab=vint}
 N 20 -140 20 -110 {
@@ -107,8 +105,6 @@ N -60 -210 -60 -170 {
 lab=Ib}
 N -540 -210 -60 -210 {
 lab=Ib}
-N -90 -410 -20 -410 {
-lab=vint}
 N -170 -460 20 -460 {
 lab=VDD}
 N 20 -460 20 -440 {
@@ -121,7 +117,7 @@ N 20 -460 30 -460 {
 lab=VDD}
 N -390 -460 -180 -460 {
 lab=VDD}
-N -90 -410 -90 -350 {
+N -130 -410 -130 -350 {
 lab=vint}
 N 30 -110 240 -110 {
 lab=VSS}
@@ -131,8 +127,6 @@ N 20 -340 20 -200 {
 lab=vint2}
 N 30 -460 240 -460 {
 lab=VDD}
-N 20 -350 20 -340 {
-lab=vint2}
 N 240 -340 250 -340 {
 lab=Vout}
 N 240 -460 240 -370 {
@@ -163,12 +157,20 @@ N 180 -210 180 -170 {
 lab=Ib}
 N 180 -170 200 -170 {
 lab=Ib}
-N -90 -350 -60 -350 {
-lab=vint}
-N 0 -350 20 -350 {
-lab=vint2}
 N 20 -380 20 -350 {
 lab=vint2}
+N -180 -350 -130 -350 {
+lab=vint}
+N -130 -410 -20 -410 {
+lab=vint}
+N 10 -350 20 -350 {
+lab=vint2}
+N 20 -350 20 -340 {
+lab=vint2}
+N -130 -350 -120 -350 {
+lab=vint}
+N -60 -350 -50 -350 {
+lab=#net1}
 C {sg13g2_pr/sg13_lv_nmos.sym} -410 -280 2 1 {name=m1a
 l=4u
 w=10u
@@ -239,7 +241,7 @@ m=1
 model=sg13_lv_pmos
 spiceprefix=X
 }
-C {devices/lab_wire.sym} -90 -350 0 0 {name=p1 sig_type=std_logic lab=vint}
+C {devices/lab_wire.sym} -180 -350 0 0 {name=p1 sig_type=std_logic lab=vint}
 C {devices/lab_wire.sym} 80 -340 0 0 {name=p3 sig_type=std_logic lab=vint2}
 C {sg13g2_pr/sg13_lv_nmos.sym} 220 -340 2 1 {name=m2d
 l=1u
@@ -257,8 +259,13 @@ m=4
 model=sg13_lv_nmos
 spiceprefix=X
 }
-C {devices/capa.sym} -30 -350 1 0 {name=C1
+C {devices/capa.sym} -20 -350 1 0 {name=C1
 m=1
-value=20p
+value=5p
 footprint=1206
 device="ceramic capacitor"}
+C {devices/res.sym} -90 -350 1 0 {name=R1
+value=1k
+footprint=1206
+device=resistor
+m=1}

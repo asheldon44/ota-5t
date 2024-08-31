@@ -58,13 +58,13 @@ C {devices/vsource.sym} 170 -370 0 0 {name=Vin value="dc 0.6 ac \{noisemag\}" sa
 C {devices/gnd.sym} 170 -280 0 0 {name=l6 lab=GND}
 C {devices/vsource.sym} 110 -370 0 0 {name=Vsup value=1.2 savecurrent=false}
 C {devices/gnd.sym} 110 -280 0 0 {name=l8 lab=GND}
-C {devices/code_shown.sym} 510 -500 0 0 {name=SETUP
+C {devices/code_shown.sym} 0 40 0 0 {name=SETUP
 simulator=ngspice
 only_toplevel=false
 value="
  .lib /foss/pdks/sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
 "}
-C {devices/code_shown.sym} 640 -430 0 0 {name=CONTROL
+C {devices/code_shown.sym} 690 -520 0 0 {name=CONTROL
 simulator=ngspice
 only_toplevel=false
 value="
@@ -96,6 +96,8 @@ value="
         alter i.X999.ii acmag=0
         alter v.X999.vi acmag=0
 	noise v(vout) vin dec 100 0.01 100e9
+	setplot noise2
+	plot onoise_spectrum inoise_spectrum xlog ylog
 .endc
 "}
 C {devices/isource.sym} 340 -470 0 0 {name=I0 value=5u}
